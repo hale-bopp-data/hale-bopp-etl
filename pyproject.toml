@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hale-bopp-etl"
+version = "0.2.0"
+description = "Config-driven ETL orchestrator powered by Dagster"
+requires-python = ">=3.10"
+
+[tool.dagster]
+module_name = "etl_hale_bopp.definitions"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

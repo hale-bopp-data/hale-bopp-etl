@@ -1,0 +1,31 @@
+pipelines:
+  - id: sample_data_extraction_and_load
+    description: Dimostrazione delle trasformazioni ETL native
+    schedule: "0 5 * * *"
+    owner: data-platform
+    retries: 2
+    tags: [etlbELVISO, extract, load]
+    tasks:
+      - id: download_and_extract
+        type: python
+        payload: { "stage": "none" } # Ignorato perché useremo il workflow_ref a livello di pipeline nel caso reale, ma qui lo mostriamo inline come macro
+        
+# N.B. In ETL-HALE-BOPP l'uso preferito dei template "prebuilt" è tramite workflow_ref a livello di pipeline:
+
+  - id: etlb_download_inps
+    description: Estrazione dati grezzi INPS
+    schedule: "0 6 * * *"
+    workflow_ref:
+      id: extract_and_unzip
+      context:
+        source_url: "https://servizi.inps.it/opendata/dataset.zip"
+        dest_folder: "/opt/airflow/data/inpd"
+
+  - id: etlb_load_inps
+    description: Caricamento massivo dati INPS a DB
+    schedule: "30 6 * * *"
+    workflow_ref:
+      id: load_to_db
+      context:
+        file_path: "/opt/airflow/data/inpd/dataset.csv"
+        table_name: "public.inps_raw"

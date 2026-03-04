@@ -1,0 +1,33 @@
+pipelines:
+  - id: etlb_daily_pipeline
+    description: Pipeline giornaliera ETLBELVISO (workflow riusabile)
+    schedule: "0 4 * * *"
+    owner: data-platform
+    retries: 1
+    tags: [etlbELVISO, daily]
+    workflow_ref:
+      id: daily_etl_n8n
+      context:
+        endpoint: /webhook/etlb-daily
+
+  - id: etlb_event_pipeline
+    description: Pipeline event-driven ETLBELVISO (workflow riusabile)
+    schedule: null
+    owner: data-platform
+    retries: 0
+    tags: [etlbELVISO, event]
+    workflow_ref:
+      id: event_etl_n8n
+      context:
+        endpoint: /webhook/etlb-event
+
+  - id: etlb_quality_gate_pipeline
+    description: Pipeline quality gate riusabile
+    schedule: "30 4 * * *"
+    owner: data-platform
+    retries: 0
+    tags: [etlbELVISO, quality]
+    workflow_ref:
+      id: quality_gate
+      context:
+        check_cmd: "echo '[quality] custom checks passed'"
