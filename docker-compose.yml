@@ -1,31 +1,11 @@
 services:
-  dagster:
-    build: .
-    container_name: hale-bopp-etl
-    ports:
-      - "127.0.0.1:3000:3000"
-    environment:
-      - DAGSTER_HOME=/opt/dagster
-      - HALEBOPP_CONFIG=/app/config/orchestration/pipelines.yaml
-      - HALEBOPP_EVENTS_DIR=/tmp/hale-bopp-events
-      - PYTHONUNBUFFERED=1
-    volumes:
-      - dagster_data:/opt/dagster
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - hale-bopp
-
   webhook:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: hale-bopp-etl-webhook
-    command: ["uvicorn", "etl_hale_bopp.webhook_app:app", "--host", "0.0.0.0", "--port", "3001"]
     ports:
-      - "3001:3001"
+      - "127.0.0.1:3001:3001"
     environment:
+      - HALEBOPP_CONFIG=/app/config/orchestration/pipelines.yaml
       - HALEBOPP_EVENTS_DIR=/tmp/hale-bopp-events
       - PYTHONUNBUFFERED=1
     volumes:
@@ -33,27 +13,21 @@ services:
     networks:
       - hale-bopp
 
-  postgres:
-    image: postgres:16-alpine
-    container_name: hale-bopp-etl-postgres
+  watcher:
+    build: .
+    container_name: hale-bopp-etl-watcher
+    command: ["python", "-m", "etl_hale_bopp", "watch"]
     environment:
-      POSTGRES_USER: dagster
-      POSTGRES_PASSWORD: dagster_dev
-      POSTGRES_DB: dagster
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U dagster"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+      - HALEBOPP_CONFIG=/app/config/orchestration/pipelines.yaml
+      - HALEBOPP_EVENTS_DIR=/tmp/hale-bopp-events
+      - PYTHONUNBUFFERED=1
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - events_data:/tmp/hale-bopp-events
     networks:
       - hale-bopp
 
 volumes:
-  dagster_data:
   events_data:
-  pg_data:
 
 networks:
   hale-bopp:

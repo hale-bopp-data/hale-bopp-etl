@@ -4,15 +4,22 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hale-bopp-etl"
-version = "0.2.0"
-description = "Config-driven ETL orchestrator powered by Dagster"
+version = "0.3.0"
+description = "Config-driven lightweight ETL runner"
 requires-python = ">=3.10"
+dependencies = [
+    "PyYAML>=6.0",
+    "httpx>=0.28",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.10",
+]
+
+[project.scripts]
+hale-bopp-etl = "etl_hale_bopp.__main__:main"
 
 [tool.setuptools.packages.find]
 include = ["etl_hale_bopp*"]
-
-[tool.dagster]
-module_name = "etl_hale_bopp.definitions"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
