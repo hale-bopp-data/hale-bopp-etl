@@ -1,6 +1,6 @@
 """Tests for pipeline config validation."""
 
-from etl_hale_bopp.schema import validate_pipeline_config
+from hale_bopp_etl.schema import validate_pipeline_config
 
 
 def test_valid_config_with_tasks():

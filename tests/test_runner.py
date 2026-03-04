@@ -2,7 +2,7 @@
 
 import pytest
 
-from etl_hale_bopp.runner import load_pipelines, resolve_tasks, run_pipeline, list_pipelines
+from hale_bopp_etl.runner import load_pipelines, resolve_tasks, run_pipeline, list_pipelines
 
 
 def test_load_pipelines():
@@ -52,6 +52,6 @@ def test_list_pipelines():
 
 
 def test_run_by_id_not_found():
-    from etl_hale_bopp.runner import run_by_id
+    from hale_bopp_etl.runner import run_by_id
     with pytest.raises(ValueError, match="not found"):
         run_by_id("nonexistent_pipeline")

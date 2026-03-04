@@ -2,7 +2,7 @@
 
 from fastapi.testclient import TestClient
 
-from etl_hale_bopp.webhook_app import app
+from hale_bopp_etl.webhook_app import app
 
 client = TestClient(app)
 
@@ -16,7 +16,7 @@ def test_health():
 def test_receive_event(tmp_path, monkeypatch):
     monkeypatch.setenv("HALEBOPP_EVENTS_DIR", str(tmp_path))
     # Reload EVENTS_DIR after monkeypatch
-    import etl_hale_bopp.webhook_app as wa
+    import hale_bopp_etl.webhook_app as wa
     monkeypatch.setattr(wa, "EVENTS_DIR", tmp_path)
 
     resp = client.post("/api/v1/webhook", json={

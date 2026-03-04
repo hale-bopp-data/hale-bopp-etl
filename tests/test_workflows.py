@@ -2,7 +2,7 @@
 
 import pytest
 
-from etl_hale_bopp.workflows.prebuilt import WORKFLOW_REGISTRY, get_workflow_tasks
+from hale_bopp_etl.workflows.prebuilt import WORKFLOW_REGISTRY, get_workflow_tasks
 
 
 def test_all_workflows_registered():

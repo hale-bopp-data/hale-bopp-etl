@@ -33,26 +33,26 @@ def main() -> int:
     )
 
     if args.command == "run":
-        from etl_hale_bopp.runner import run_by_id
+        from hale_bopp_etl.runner import run_by_id
         results = run_by_id(args.pipeline_id, args.config)
         for r in results:
             print(f"  {r['task_id']}: OK")
         return 0
 
     elif args.command == "list":
-        from etl_hale_bopp.runner import list_pipelines
+        from hale_bopp_etl.runner import list_pipelines
         for p in list_pipelines():
             print(f"  {p['id']:40s} {p['schedule']:20s} {p['description']}")
         return 0
 
     elif args.command == "watch":
-        from etl_hale_bopp.watcher import watch
+        from hale_bopp_etl.watcher import watch
         watch(args.interval)
         return 0
 
     elif args.command == "webhook":
         import uvicorn
-        uvicorn.run("etl_hale_bopp.webhook_app:app", host=args.host, port=args.port)
+        uvicorn.run("hale_bopp_etl.webhook_app:app", host=args.host, port=args.port)
         return 0
 
     else:

@@ -8,7 +8,7 @@ import os
 import time
 from pathlib import Path
 
-from etl_hale_bopp.runner import run_by_id
+from hale_bopp_etl.runner import run_by_id
 
 log = logging.getLogger("hale-bopp-etl")
 

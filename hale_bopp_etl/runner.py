@@ -5,10 +5,10 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from etl_hale_bopp.config_loader import load_orchestration_config
-from etl_hale_bopp.executor import execute_task
-from etl_hale_bopp.schema import validate_pipeline_config
-from etl_hale_bopp.workflows.prebuilt import get_workflow_tasks
+from hale_bopp_etl.config_loader import load_orchestration_config
+from hale_bopp_etl.executor import execute_task
+from hale_bopp_etl.schema import validate_pipeline_config
+from hale_bopp_etl.workflows.prebuilt import get_workflow_tasks
 
 log = logging.getLogger("hale-bopp-etl")
 

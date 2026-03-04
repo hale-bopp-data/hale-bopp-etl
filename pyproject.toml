@@ -16,10 +16,10 @@ dependencies = [
 ]
 
 [project.scripts]
-hale-bopp-etl = "etl_hale_bopp.__main__:main"
+hale-bopp-etl = "hale_bopp_etl.__main__:main"
 
 [tool.setuptools.packages.find]
-include = ["etl_hale_bopp*"]
+include = ["hale_bopp_etl*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

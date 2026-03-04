@@ -16,7 +16,7 @@ services:
   watcher:
     build: .
     container_name: hale-bopp-etl-watcher
-    command: ["python", "-m", "etl_hale_bopp", "watch"]
+    command: ["python", "-m", "hale_bopp_etl", "watch"]
     environment:
       - HALEBOPP_CONFIG=/app/config/orchestration/pipelines.yaml
       - HALEBOPP_EVENTS_DIR=/tmp/hale-bopp-events

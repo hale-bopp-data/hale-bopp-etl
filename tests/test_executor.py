@@ -2,7 +2,7 @@
 
 import pytest
 
-from etl_hale_bopp.executor import execute_task
+from hale_bopp_etl.executor import execute_task
 
 
 def test_bash_task():
