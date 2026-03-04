@@ -8,6 +8,9 @@ version = "0.2.0"
 description = "Config-driven ETL orchestrator powered by Dagster"
 requires-python = ">=3.10"
 
+[tool.setuptools.packages.find]
+include = ["etl_hale_bopp*"]
+
 [tool.dagster]
 module_name = "etl_hale_bopp.definitions"
 
