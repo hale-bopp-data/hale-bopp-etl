@@ -1,7 +1,7 @@
-"""Lightweight webhook receiver — writes events to disk for the Dagster sensor.
+"""Webhook receiver — writes events to disk for the event watcher.
 
-Runs as a separate process alongside Dagster. Receives Universal Events
-from DB-HALE-BOPP and ARGOS-HALE-BOPP via POST /api/v1/webhook.
+Receives Universal Events from hale-bopp-db and hale-bopp-argos
+via POST /api/v1/webhook.
 """
 
 from __future__ import annotations

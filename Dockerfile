@@ -5,13 +5,11 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY etl_hale_bopp/ ./etl_hale_bopp/
+COPY hale_bopp_etl/ ./hale_bopp_etl/
 COPY config/ ./config/
+COPY pyproject.toml .
+RUN pip install --no-cache-dir -e .
 
-# Dagster home for run storage
-RUN mkdir -p /opt/dagster
-ENV DAGSTER_HOME=/opt/dagster
+EXPOSE 3001
 
-EXPOSE 3000
-
-CMD ["dagster-webserver", "-h", "0.0.0.0", "-p", "3000", "-m", "etl_hale_bopp.definitions"]
+CMD ["python", "-m", "hale_bopp_etl", "webhook"]
